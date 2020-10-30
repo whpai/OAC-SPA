@@ -6,9 +6,7 @@ process.env.VUE_APP_GIT_HASH = gitDescribeSync().hash
 process.env.VUE_APP_VERSION = require('./package.json').version
 process.env.VUE_APP_BUILDTIME = (new Date()).toISOString()
 process.env.VUE_APP_BUILD = `v${process.env.VUE_APP_VERSION}-${process.env.VUE_APP_GIT_HASH}-${process.env.VUE_APP_BUILDTIME}`
-const injectStr =
-    `const ACACHE = 'acache-${process.env.VUE_APP_BUILD}';\n` +
-    `const DCACHE = 'dcache-${process.env.VUE_APP_BUILD}';\n`;
+const injectStr = `const BUILD_VERSION = '${process.env.VUE_APP_BUILD}';\n`;
 
 module.exports = {
     configureWebpack: config => {},
