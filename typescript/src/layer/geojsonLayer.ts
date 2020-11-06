@@ -132,13 +132,9 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
         pathCollection.length && pathCollection.forEach(path=>{
             this._lastHighLightPathCollection.push({
                 path:path,
-                lastStyle:{
-                    color:path.options.color,
-                    fillColor:path.options.color,
-                    weight: 3
-                }
+                lastStyle: Object.assign({}, path.options),
             })
-            path.bringToFront()
+            //path.bringToFront()
             path.setStyle({
                 color:"yellow",
                 fillColor:path.options.color,
@@ -159,7 +155,7 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
             this._lastHighLightPathCollection.length = 0
 
             // 重排序 : 因移除後重新加回會使目標圖層跑至地圖最上，集合中紀錄的索引位置才是其原本真正位置
-            this._map.eachLayer((lyr:any)=>lyr instanceof GeojsonLayer && lyr.bringToFront())
+            //this._map.eachLayer((lyr:any)=>lyr instanceof GeojsonLayer && lyr.bringToFront())
         } 
     }
 
