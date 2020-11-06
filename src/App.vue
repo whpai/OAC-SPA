@@ -144,6 +144,8 @@ export default {
 			SET_WINDY_OPTION:"SET_WINDY_OPTION",
 		}),
 		async eventHandler(){
+			const lay = this.$LayerIns
+			const ins = this.$InitIns
 			const map = this.$InitIns.map
 			map.on({
 				"typhoonAlert":({data})=>{
@@ -186,9 +188,37 @@ export default {
 					this.SET_WINDY_OPTION({location:`${locStr}`})
 					history.replaceState(null, document.title, `?loc=${locStr}`)
 				},
-				"geojsonClick":({result})=>{
+				"markerClick": async ({dataType,layer,data,event})=>{
+					console.log("[markerClick]",{dataType,layer,data,event})
+					switch(dataType){
+						case "isoheStation":
+							const drawerIns = this.$drawer({
+								props:{
+									title:"",
+									size: this.isMobile ? "100%" : "400px",
+									direction:"btt"
+								},
+								on:{
+									close:()=>{
+										console.log("drawer close")
+									}
+								}
+							})
+							drawerIns.open({...isoheStation,store:this.$store}, {
+								props:{data}
+							})
+							break
+						case "scenicSpot":
+						default:
+							setTimeout(()=>layer.openPopup(),100)
+					}
+				},
+				"click": (ev) => {
+					//let layers = lay.getLayersAt(ev.containerPoint);
+					//console.log("[map.click]", layers)
+					let result = lay.query(ev.latlng, map)
 					console.log("[geojsonClick Result]", result)
-					
+
 					if(!result.length) return
 
 					let hasDrawer = false
@@ -220,31 +250,6 @@ export default {
 						this.SET_CARD_VISIBLE({key:'result',bool:true})
 					}
 				},
-				"markerClick": async ({dataType,layer,data,event})=>{
-					console.log("[markerClick]",{dataType,layer,data,event})
-					switch(dataType){
-						case "isoheStation":
-							const drawerIns = this.$drawer({
-								props:{
-									title:"",
-									size: this.isMobile ? "100%" : "400px",
-									direction:"btt"
-								},
-								on:{
-									close:()=>{
-										console.log("drawer close")
-									}
-								}
-							})
-							drawerIns.open({...isoheStation,store:this.$store}, {
-								props:{data}
-							})
-							break
-						case "scenicSpot":
-						default:
-							setTimeout(()=>layer.openPopup(),100)
-					}
-				}
 			})
 
 		},

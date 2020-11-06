@@ -105,9 +105,6 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
 
                 this.setStyle(this.lyrOpts.pathOptions)
                 this._Geojson.addTo(map)
-
-                this.handleQueryClick = this.handleQueryClick.bind(this)
-                this._Geojson.on("click",this.handleQueryClick)
                 
                 this.status = "loaded"
                 this.fireEvent("loaded")
@@ -186,43 +183,6 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
 
         return pathCollection
 
-    }
-    
-
-    handleQueryClick(evt:L.LeafletMouseEvent){
-        this.deHighLightPath()
-        const result = this.query(evt.latlng, this._map)
-        this._map.fireEvent("geojsonClick", {result})
-    }
-    
-    query(latlng:L.LatLng, map:L.Map){
-        this.deHighLightPath()
-        let payload:Array<IQueryResult> = new Array()
-
-        map.eachLayer((l:any)=>{
-            if(l.visible && l instanceof GeojsonLayer){
-                const pathCollection = l.getFeaturePropertiesBylatlng(latlng)
-                const {id,title,catelog,tag} = l
-                pathCollection.forEach(path=>{
-                    payload.push({
-                        layerId:id,
-                        layerTitle:title,
-                        layerCatelog:catelog,
-                        tag,
-                        dataId: uuidv4(),
-                        data:path.feature.properties,
-                        /** @see https://leafletjs.com/reference-1.6.0.html#map-flytobounds */
-                        goTo:flyToBoundsOption=>{
-                            this.deHighLightPath()
-                            this.highLightPath([path])
-                            map.flyToBounds(path.getBounds(),flyToBoundsOption)
-                        }
-                    })
-                })
-                this.highLightPath(pathCollection) // 高亮
-            } 
-        })
-        return payload
     }
 
 }
