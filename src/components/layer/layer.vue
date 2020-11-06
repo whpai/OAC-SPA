@@ -188,10 +188,14 @@ export default {
 		},
 		handleLayerVisibility(id,bool){
 			const lyrIns = this.$LayerIns.normalLayerCollection.find(l=>l.id === id)
-			if( lyrIns.status !== "loaded" ){
-				console.log("lyr not loaded now")
+			if( lyrIns.status === "loading" ){
+				console.log("lyr loading now")
 				return
-			} 
+			}
+			if( lyrIns.status === "error" ){
+				console.log("lyr loading error")
+				return
+			}
 			
 			this.UPDATE_LAYER_OPTIONS({id,
 				payload:{
