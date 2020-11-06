@@ -302,6 +302,23 @@
             "tag": ["A", "B", "C", "D"]
         },
         {
+            "title": "異常波浪潛勢",
+            "url": "https://ocean.taiwan.gov.tw/OpenData/OFW/index.json",
+            "visible": false,
+            "dataSet": [
+                { "label": "異常波浪-異常波浪潛勢風險預報-第00小時", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-B0083-001" },
+                { "label": "異常波浪-異常波浪潛勢風險預報-第24小時", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-B0083-002" },
+                { "label": "異常波浪-異常波浪潛勢風險預報-第36小時", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-B0083-003" },
+                { "label": "異常波浪-異常波浪潛勢風險預報-第48小時", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-B0083-004" }
+            ],
+            "type": "gradient",
+            "tag": ["A", "B", "C", "D"],
+            "layerOption": {
+		"interpolateType": "NearestNeighbor",
+		"dpx": 2
+            }
+        },
+        {
             "title": "10米風資料_WIFI",
             "url": "https://ocean.taiwan.gov.tw/OpenData/PDSWind/index.json",
             "visible": false,

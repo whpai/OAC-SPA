@@ -181,7 +181,7 @@ export default {
 					const TIME_STR = this.DATES[index]
 					const activedLyr = this.$LayerIns.normalLayerCollection.find(l=>l.id === this.activedWeatherLyr.id)
 					try{
-						await activedLyr.setTimeData(TIME_STR)
+						if (activedLyr) await activedLyr.setTimeData(TIME_STR)
 					}catch(e){
 						console.error(e)
 					}finally{

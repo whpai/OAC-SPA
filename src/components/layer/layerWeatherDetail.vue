@@ -65,7 +65,7 @@ export default {
             return [
                 {
                     name:"海象",
-                    data:this.weatherLayer.filter(i=>/OCM模式|臺灣海域預報/g.test(i.title))
+                    data:this.weatherLayer.filter(i=>/OCM模式|臺灣海域預報|異常波浪潛勢/g.test(i.title))
                 }
             ]
         }
@@ -118,7 +118,7 @@ export default {
                 console.log("[activedWLyr legend]",legend)
                 if(legend){
                     
-                    const { colorScaleLabel,colorScaleValue } = legend
+                    let { colorScaleLabel,colorScaleValue } = legend
 
                     // 重新設定 顏色尺度
                     lyrAwaitToActive.setOption({
