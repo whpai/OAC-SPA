@@ -20,6 +20,8 @@ abstract class BaseCluster extends L.Layer implements ILayer{
     status:"loading"|"loaded"|"error"
     icon?: string
     lyrOpts:any
+    group: string
+    enable: boolean
 
     markerClusterGroup:L.MarkerClusterGroup
 
@@ -32,6 +34,8 @@ abstract class BaseCluster extends L.Layer implements ILayer{
         catelog,
         opacity,
         dataSet,
+        group,
+        enable,
         ...lyrOpts
     }){
         super()
@@ -44,7 +48,9 @@ abstract class BaseCluster extends L.Layer implements ILayer{
         this.opacity = 1
         this.icon = lyrOpts.layerOption.icon
         this.lyrOpts = lyrOpts
-        this.dataSet = dataSet 
+        this.dataSet = dataSet
+        this.group = group
+        this.enable = enable
 
         this.markerClusterGroup = L.markerClusterGroup({
             iconCreateFunction: cluster=> L.divIcon({

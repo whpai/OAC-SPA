@@ -31,6 +31,8 @@ export class VelocityLayer extends L.Layer implements ILayer{
       time08:string
   }>
   times:Array<string>
+  group: string
+  enable: boolean
 
   constructor({
     id,
@@ -41,6 +43,8 @@ export class VelocityLayer extends L.Layer implements ILayer{
     visible,
     opacity,
     dataSet,
+    group,
+    enable,
     ...lyrOpts
   }) {
     super(lyrOpts)
@@ -53,6 +57,8 @@ export class VelocityLayer extends L.Layer implements ILayer{
     this.opacity = opacity
     this.dataSet = dataSet
     this.lyrOpts = lyrOpts
+    this.group = group
+    this.enable = enable
   }
 
   async fetchData(idx:number = 0):Promise<any>{

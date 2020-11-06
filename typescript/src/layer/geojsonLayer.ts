@@ -14,6 +14,8 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
     legendColor: string
     status:"loading"|"loaded"|"error"
     lyrOpts:any
+    group: string
+    enable: boolean
 
     private _Geojson:L.GeoJSON
 
@@ -32,6 +34,8 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
         visible,
         opacity,
         dataSet,
+        group,
+        enable,
         ...lyrOpts
     }){
         super()
@@ -44,6 +48,8 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
         this.opacity = lyrOpts.pathOptions.opacity
         this.dataSet = dataSet
         this.lyrOpts = lyrOpts
+        this.group = group
+        this.enable = enable
         
         const {pathOptions} = this.lyrOpts
         this.legendColor = pathOptions.color.match(/\d+/g).join(",") // ${}

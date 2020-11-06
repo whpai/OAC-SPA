@@ -283,6 +283,8 @@
         {
             "title": "海表鹽度_OCM模式",
             "url": "https://ocean.taiwan.gov.tw/OpenData/OcmSALT/json/Index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "type": "gradient",
             "tag": ["A", "B", "C", "D"]
@@ -290,6 +292,8 @@
         {
             "title": "海表高度_OCM模式",
             "url": "https://ocean.taiwan.gov.tw/OpenData/OcmWL/json/Index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "type": "gradient",
             "tag": ["A", "B", "C", "D"]
@@ -297,6 +301,8 @@
         {
             "title": "海表溫度_OCM模式",
             "url": "https://ocean.taiwan.gov.tw/OpenData/OcmSST/json/Index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "type": "gradient",
             "tag": ["A", "B", "C", "D"]
@@ -304,6 +310,8 @@
         {
             "title": "異常波浪潛勢",
             "url": "https://ocean.taiwan.gov.tw/OpenData/OFW/index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "dataSet": [
                 { "label": "異常波浪-異常波浪潛勢風險預報-第00小時", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-B0083-001" },
@@ -335,6 +343,8 @@
         {
             "title": "波浪週期_臺灣海域預報",
             "url": "https://ocean.taiwan.gov.tw/OpenData/SeaDirHsT/index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "type": "wavePeriodGradient",
             "tag": ["A", "B", "C", "D"]
@@ -342,6 +352,8 @@
         {
             "title": "波浪浪高_臺灣海域預報",
             "url": "https://ocean.taiwan.gov.tw/OpenData/SeaDirHsT/index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "type": "waveHeightGradient",
             "tag": ["A", "B", "C", "D"]
@@ -349,6 +361,8 @@
         {
             "title": "表面海流_OCM模式",
             "url": "https://ocean.taiwan.gov.tw/OpenData/OcmUV/json/index.json",
+            "enable": true,
+            "group": "海象",
             "visible": false,
             "type": "velocity",
             "tag": ["A", "B", "C", "D"],

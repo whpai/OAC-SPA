@@ -48,10 +48,31 @@ export default {
     name:"layerWeatherDetail",
 	data:()=>({
         loading:false,
-        DUMMY_LEGEND:[]
+        DUMMY_LEGEND:[],
+        layerGroup: [],
     }),
     async created(){
         this.DUMMY_LEGEND = await(await fetch('./layerLegend.json')).json()
+        let showGroup = {};
+        let showOrder = [];
+
+        this.weatherLayer.forEach(lay=>{
+            let group = lay.group || ''
+            if (lay.enable) {
+                if(!showGroup[group]) {
+                    showGroup[group] = []
+                    showOrder.push(group)
+                }
+                showGroup[group].push(lay)
+            }
+        })
+        while (showOrder.length) {
+            let name = showOrder.shift()
+            this.layerGroup.push({
+                name: name,
+                data: showGroup[name],
+            })
+        }
     },
 	computed:{
 		...mapGetters({
@@ -62,12 +83,7 @@ export default {
             return this.weatherLayer.find(l=>l.id === id)
         },
         weatherLayerGroup(){
-            return [
-                {
-                    name:"海象",
-                    data:this.weatherLayer.filter(i=>/OCM模式|臺灣海域預報|異常波浪潛勢/g.test(i.title))
-                }
-            ]
+            return this.layerGroup
         }
 	},
 	methods:{

@@ -11,6 +11,8 @@ export class GradientLayer extends L.Layer implements ILayer{
     opacity: number
     dataSet: { label: string; value: string }[]
     status:"loading"|"loaded"|"error"
+    group: string
+    enable: boolean
 
     protected _canvas:HTMLCanvasElement = null
     protected _frame:any = null
@@ -35,6 +37,8 @@ export class GradientLayer extends L.Layer implements ILayer{
         visible,
         opacity,
         dataSet,
+        group,
+        enable,
         ...lyrOpts
     }){
         super()
@@ -47,6 +51,8 @@ export class GradientLayer extends L.Layer implements ILayer{
         this.opacity = opacity
         this.dataSet = dataSet
         this.lyrOpts = lyrOpts
+        this.group = group
+        this.enable = enable
     }
 
     async fetchData(idx:number = 0):Promise<Array<{data:any,header:any}>>{

@@ -38,6 +38,8 @@ interface ILayer {
     title:string
     catelog:Array<{label:string,value:string}>
     tag:Array<string>
+    group?:string
+    enable?:boolean
     visible:boolean
     opacity:number
     dataSet:Array<{label:string,value:string}>
