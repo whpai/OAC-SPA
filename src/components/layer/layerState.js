@@ -110,7 +110,7 @@ export default {
         weatherLayer: (state, getters , rootGetters) => {
             const wl = state.layer.filter(l => {
                 const { value } = rootGetters.currentTag
-                return /heatmap|velocity|gradient/ig.test(l.type) && (value ? (l.tag || []).indexOf(value) > -1 : true)
+                return /heatmap|velocity|gradient|typhoon/ig.test(l.type) && (value ? (l.tag || []).indexOf(value) > -1 : true)
             })
             // mixin icon
             const ICON_ENUM = {
