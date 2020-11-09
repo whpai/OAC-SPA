@@ -16,6 +16,7 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
     lyrOpts:any
     group: string
     enable: boolean
+    sortable?: boolean
 
     private _Geojson:L.GeoJSON
 
@@ -32,6 +33,7 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
         catelog,
         tag,
         visible,
+        sortable,
         opacity,
         dataSet,
         group,
@@ -45,6 +47,7 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
         this.catelog = catelog
         this.tag = tag
         this.visible = visible
+        this.sortable = sortable
         this.opacity = lyrOpts.pathOptions.opacity
         this.dataSet = dataSet
         this.lyrOpts = lyrOpts

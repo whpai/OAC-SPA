@@ -41,6 +41,7 @@ interface ILayer {
     group?:string
     enable?:boolean
     visible:boolean
+    sortable?:boolean
     opacity:number
     dataSet:Array<{label:string,value:string}>
     fetchData(p:any):Promise<any>

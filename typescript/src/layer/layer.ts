@@ -103,8 +103,8 @@ export class Layer {
         // 取得的新舊索引需反轉(視圖為反轉的)
         let rvNewIndex = this.normalLayerCollection.length-1-newIndex
         let rvOldIndex = this.normalLayerCollection.length-1-oldIndex
-        console.log("rvNewIndex",rvNewIndex)
-        console.log("rvOldIndex",rvOldIndex)
+        console.log("rvNewIndex",rvNewIndex, this.normalLayerCollection[rvNewIndex].title)
+        console.log("rvOldIndex",rvOldIndex, this.normalLayerCollection[rvOldIndex].title)
 
         // 偏移 <0 往下 >0 往上
         let offset = rvNewIndex-rvOldIndex
@@ -113,6 +113,7 @@ export class Layer {
         // 要移動的目標
         let ptr = this.normalLayerCollection[rvOldIndex]
         console.log(ptr)
+        //console.log("[ before order ]", this.normalLayerCollection.map(l=>l.title).reverse())
 
         if(offset>0){
             ptr.bringToFront() // 會使目標移到最前

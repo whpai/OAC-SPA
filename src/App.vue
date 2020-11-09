@@ -277,9 +277,9 @@ export default {
 			this.SNAPSHOT_RAW_LAYER({
 				type:"layer",
 				payload: this.$LayerIns.normalLayerCollection.map(({
-					type,title,name,id,icon,dataSet,opacity,visible,legendColor="145,145,145",catelog,tag,group,enable
+					type,title,name,id,icon,dataSet,opacity,visible,sortable,legendColor="145,145,145",catelog,tag,group,enable
 				})=>({
-					type,title,name,id,icon,dataSet,opacity,visible,legendColor,catelog,tag,group,enable
+					type,title,name,id,icon,dataSet,opacity,visible,sortable,legendColor,catelog,tag,group,enable
 				})).reverse()
 			})
 			

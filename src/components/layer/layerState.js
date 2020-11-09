@@ -102,8 +102,12 @@ export default {
         /** 可排序的圖層 */
         sortableLayer: (state, getters , rootGetters) => {
             return state.layer.filter(l => {
-                const { value } = rootGetters.currentTag
-                return /filelayer|geojson/ig.test(l.type) && (value ? (l.tag || []).indexOf(value) > -1 : true)
+                return l.sortable
+            })
+        },
+        unsortableLayer: (state, getters , rootGetters) => {
+            return state.layer.filter(l => {
+                return !l.sortable
             })
         },
         /** 預報 */

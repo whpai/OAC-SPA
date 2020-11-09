@@ -109,7 +109,8 @@ export default {
 		...mapGetters({
 			pointerLayer: 'layer/pointerLayer',
 			sortableLayer: 'layer/sortableLayer',
-			weatherLayer: 'layer/weatherLayer'
+			unsortableLayer: 'layer/unsortableLayer',
+			weatherLayer: 'layer/weatherLayer',
 		}),
 		layer(){
 			return this.$store.state.layer.layer
@@ -145,7 +146,7 @@ export default {
 			}
 		},
 		layerUnSortable(){
-			return [...this.pointerLayer, ...this.weatherLayer]
+			return this.unsortableLayer
 		},
 		layerUnSortableCount(){
 			return this.layerUnSortable.length
@@ -170,7 +171,7 @@ export default {
 			const ni = evt.newIndex 
 			
 			//- 地圖實例順序更新
-			console.log("順序移動 : 索引 " + oi + " 至 " + ni,this.layerSortableModel[oi])
+			console.log("順序移動 : 索引 " + oi + " 至 " + ni,this.layerSortableModel[oi], this.layerUnSortableCount)
 
 			/** 加上不可排序的長度 來偏移 */
 			const offset_oi = oi + this.layerUnSortableCount

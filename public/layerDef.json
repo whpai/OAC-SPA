@@ -44,6 +44,7 @@
             "title": "海面天氣預報(近海海象)",
             "url": "https://ocean.taiwan.gov.tw/OpenData/CWB_NSea/json/geo_F_A0012_001.json",
             "visible": true,
+            "sortable": true,
             "dataSet": [{ "label": "臺灣鄰近及遠洋漁業海面天氣預報資料-海面天氣預報(中文版)", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-A0012-001" }],
             "type": "geojson",
             "tag": ["A", "B", "C", "D"],
@@ -57,6 +58,7 @@
             "title": "各類海洋保護區",
             "url": "./layers/3.json",
             "visible": false,
+            "sortable": true,
             "type": "geojson",
             "tag": ["A", "B", "C", "D"],
             "pathOptions": {
@@ -69,6 +71,7 @@
             "title": "沿海一般保護區",
             "url": "./layers/4.json",
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": [],
             "pathOptions": {
@@ -81,6 +84,7 @@
             "title": "沿海自然保護區",
             "url": "./layers/5.json",
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": [],
             "pathOptions": {
@@ -94,6 +98,7 @@
             "url": "./layers/2.json",
             "dataSet": [{ "label": "人工魚礁區及保護礁區", "value": "https://www.fa.gov.tw/cht/OpenData/index.aspx?k=漁業資源保育" }],
             "visible": false,
+            "sortable": true,
             "type": "geojson",
             "tag": ["A", "B", "C", "D"],
             "pathOptions": {
@@ -106,6 +111,7 @@
             "title": "海上平台設置範圍",
             "url": "./layers/6.json",
             "visible": false,
+            "sortable": true,
             "type": "geojson",
             "tag": [],
             "pathOptions": {
@@ -118,6 +124,7 @@
             "title": "水域遊憩範圍",
             "url": "./layers/8.json",
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": [],
             "pathOptions": {
@@ -130,6 +137,7 @@
             "title": "漁港商港公告釣點",
             "url": "./layers/1.json",
             "visible": false,
+            "sortable": true,
             "type": "geojson",
             "tag": ["A"],
             "pathOptions": {
@@ -143,6 +151,7 @@
             "url": "./layers/7.json",
             "dataSet": [{ "label": "港區範圍", "value": "https://www.fa.gov.tw/cht/OpenData/index.aspx?pn=10" }],
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": ["A", "B", "C", "D"],
             "pathOptions": {
@@ -156,6 +165,7 @@
             "url": "./layers/9.json",
             "dataSet": [{ "label": "定置漁場", "value": "https://www.fa.gov.tw/cht/OpenData/index.aspx?k=其他" }],
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": ["A", "B", "C", "D"],
             "pathOptions": {
@@ -169,6 +179,7 @@
             "url": "./layers/22.json",
             "dataSet": [{ "label": "養殖箱網", "value": "https://www.fa.gov.tw/cht/OpenData/index.aspx?k=其他" }],
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": ["A", "B", "C", "D"],
             "pathOptions": {
@@ -182,6 +193,7 @@
             "dataSet": [{ "label": "開放垂釣之漁港", "value": "https://www.fa.gov.tw/cht/OpenData/index.aspx?k=其他" }],
             "url": "./layers/11.json",
             "visible": true,
+            "sortable": true,
             "type": "geojson",
             "tag": ["C"],
             "pathOptions": {

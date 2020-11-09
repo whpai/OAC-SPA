@@ -6,6 +6,7 @@ export class TyphoonLayer extends L.Layer implements ILayer{
     catelog: { label: string; value: string }[]
     tag: string[]
     visible: boolean
+    sortable?: boolean
     opacity: number
     dataSet: { label: string; value: string }[]
     imgUrl?: string
@@ -21,6 +22,7 @@ export class TyphoonLayer extends L.Layer implements ILayer{
         catelog,
         tag,
         visible,
+        sortable,
         opacity,
         dataSet,
         ...lyrOpts
@@ -32,6 +34,7 @@ export class TyphoonLayer extends L.Layer implements ILayer{
         this.catelog = catelog
         this.tag = tag
         this.visible = visible
+        this.sortable = sortable
         this.opacity = opacity
         this.dataSet = dataSet
         this.lyrOpts = lyrOpts
