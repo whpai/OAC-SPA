@@ -7,6 +7,7 @@
 	)
 		
 		.dragger(
+			ref="dragger"
 			v-if="!isIE"
 			v-handle
 			:style="isRetrival?'color:red;':''"
@@ -68,7 +69,7 @@
 										:href="i.value"
 									) {{i.label}}
 
-				div(v-if="detailVisibility && layer.visible && !isOutScaleStyle")
+				div(ref="detailConfig" v-if="detailVisibility && layer.visible && !isOutScaleStyle")
 					transition(name="fade")
 						.layer-card__content__opacity
 							el-slider(
@@ -165,6 +166,8 @@ export default {
 			UPDATE_LAYER_OPTIONS:"layer/UPDATE_LAYER_OPTIONS"
 		}),
 		handleOpacitySlider(evt){
+			if(this.$refs.detailConfig?.contains(evt.target)) return
+			if(this.$refs.dragger.contains(evt.target)) return
 			if(this.$refs.outterButton.contains(evt.target)) return
 			this.detailVisibility = !this.detailVisibility
 		},
