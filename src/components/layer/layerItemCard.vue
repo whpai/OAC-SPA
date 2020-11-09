@@ -69,7 +69,11 @@
 										:href="i.value"
 									) {{i.label}}
 
-				div(ref="detailConfig" v-if="detailVisibility && layer.visible && !isOutScaleStyle")
+				div(
+					v-if="detailVisibility && layer.visible && !isOutScaleStyle"
+					ref="detailConfig"
+					style="z-index:1;"
+				)
 					transition(name="fade")
 						.layer-card__content__opacity
 							el-slider(
@@ -166,6 +170,7 @@ export default {
 			UPDATE_LAYER_OPTIONS:"layer/UPDATE_LAYER_OPTIONS"
 		}),
 		handleOpacitySlider(evt){
+			//console.log("[handleOpacitySlider]", evt, evt.target, this.$refs)
 			if(this.$refs.detailConfig?.contains(evt.target)) return
 			if(this.$refs.dragger.contains(evt.target)) return
 			if(this.$refs.outterButton.contains(evt.target)) return
