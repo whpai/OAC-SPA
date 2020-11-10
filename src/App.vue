@@ -43,6 +43,7 @@ import mapUIxs from "@/components/mapUIxs"
 
 import isoheStation from "@/components/result/isoheStation"
 import coastWeather from "@/components/result/coastWeather"
+import tideTable from "@/components/result/tideTable"
 
 import {Init} from "@/../typescript/dist/init"
 import {Layer} from "@/../typescript/dist/layer/layer"
@@ -206,6 +207,25 @@ export default {
 							})
 							drawerIns.open({...isoheStation,store:this.$store}, {
 								props:{data}
+							})
+							break
+						case "tidal":
+							this.$drawer({
+								props:{
+									title:"",
+									size: this.isMobile ? "100%" : "80vh",
+									direction:"btt"
+								},
+								on:{
+									close:()=>{
+										console.log("drawer close")
+									}
+								}
+							}).open({...tideTable,store:this.$store}, {
+								props:{
+									data,
+									layer,
+								}
 							})
 							break
 						case "scenicSpot":

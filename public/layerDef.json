@@ -462,6 +462,17 @@
             }
         },
         {
+            "title": "潮汐預報-未來1個月潮汐預報",
+            "url": "https://ocean.taiwan.gov.tw/OpenData/CWB_Tide_30day_MOD/json/geo_index.json",
+            "visible": true,
+            "tag": [],
+            "dataSet": [{ "label": "潮汐預報-未來1個月潮汐預報", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-A0021-001" }],
+            "type": "markTidalLayer",
+            "layerOption": {
+                "icon": "water"
+            }
+        },
+        {
             "title": "颱風路徑",
             "url": "https://ocean.taiwan.gov.tw/OpenData/CWB_Typhoon/json/W-C0034-001_002.json",
             "visible": true,
