@@ -73,18 +73,15 @@ import pageHeader from "@/components/common/pageHeader"
 /** @see https://nightcatsama.github.io/vue-slider-component/#/zh-CN/advanced/components-slots */
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
-import BScroll from 'better-scroll'
 
 export default {
 	name:"popup",
 	components:{
 		VueSlider,
 		pageHeader,
-		BScroll,
 	},
 	data:()=>({
-		BScrollInstance:null,
-		currentDate: -1,
+		currentDate: 0,
 		time: null,
 	}),
 	props:{
@@ -99,7 +96,7 @@ export default {
 		dataModel(){
 			if (!this.time) return null;
 			console.log("dataModel()", this, this.time, this.currentDate)
-			return (this.currentDate >= 0)? this.time[this.currentDate] : this.time[0];
+			return this.time[this.currentDate];
 		},
 		MARKS(){
 			let bucket = {}
@@ -171,7 +168,7 @@ export default {
 		},
 	},
 	async created() {
-		console.log("tideTable0", this, this.data);
+//		console.log("tideTable0", this, this.data);
 		const url = this.layer.lyr.lyrOpts.url.replace(/geo_index.json$/ig, this.data.detailfilename); // TODO: not hardcoded
 		const detail = await(await fetch(url)).json();
 		const time = [];
@@ -200,7 +197,7 @@ export default {
 			time.push(obj);
 		})
 		this.time = time;
-		console.log("tideTable", this, this.time);
+//		console.log("tideTable", this, this.time);
 	},
 	mounted() {
 
@@ -270,7 +267,6 @@ export default {
 
 .dataCard{
 	flex: 1 1 300px;
-	/*cursor: pointer;*/
 	margin: 0.5rem;
 	&--actived{
 		background-color: rgba($primary,0.1);
