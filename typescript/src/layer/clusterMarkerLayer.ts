@@ -461,60 +461,60 @@ export class WaterQualityLayer extends BaseCluster {
 
 export class TidalLayer extends BaseCluster {
 
-    data:any
+	data:any
 
-    constructor(opts){
-        super(opts)
-    }
+	constructor(opts){
+		super(opts)
+	}
 
-    private _pointToLayer(feature, latlng){
+	private _pointToLayer(feature, latlng){
 
-        const mk = L.marker(latlng, {
-            icon:L.divIcon({
-                html:this.getIconVM(),
-            }),
-        })
-	mk.lyr = this;
+		const mk = L.marker(latlng, {
+			icon:L.divIcon({
+				html:this.getIconVM(),
+			}),
+		})
+		mk.lyr = this;
 
-        const {
-            locationName,
-            detailfilename,
-        } = feature.properties
+		const {
+			locationName,
+			detailfilename,
+		} = feature.properties
 
-        mk.on("click",e=>{
-            this._map.fireEvent("markerClick",{
-                dataType: "tidal",
-                layer: mk,
-                data: feature.properties,
-                event:e
-            })
-        })
+		mk.on("click",e=>{
+			this._map.fireEvent("markerClick",{
+				dataType: "tidal",
+				layer: mk,
+				data: feature.properties,
+				event:e,
+			})
+		})
 
-        return mk
-    }
+		return mk
+	}
 
-    onAdd(map){
-        (async ()=>{
-            try{
-                this.status = "loading"
+	onAdd(map){
+		(async ()=>{
+			try{
+				this.status = "loading"
 
-                if(!this.data) this.data = await this.fetchData()
+				if(!this.data) this.data = await this.fetchData()
 
-                const geojson = L.geoJSON(this.data,{
-                    pointToLayer:this._pointToLayer.bind(this)
-                })
+				const geojson = L.geoJSON(this.data,{
+					pointToLayer: this._pointToLayer.bind(this),
+				})
 
-                this.markerClusterGroup.addLayer(geojson).addTo(map)
+				this.markerClusterGroup.addLayer(geojson).addTo(map)
 
-                this.fireEvent("loaded")
-                this.status = "loaded"
-            }catch(e){
-                this.fireEvent("error",e)
-                this.status = "error"
-            }
-        })()
-        return this
-    }
+				this.fireEvent("loaded")
+				this.status = "loaded"
+			}catch(e){
+				this.fireEvent("error",e)
+				this.status = "error"
+			}
+		})()
+		return this
+	}
 
 }
 
