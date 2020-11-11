@@ -13,13 +13,27 @@
 				title="查看資料來源"
 			)
 
-		//- Default style - time slider
-		VueSlider(
-			ref="VueSlider"
-			class="VueSlider"
-			v-model="currentDate"
-			v-bind="options"
-		)
+		.picker
+			el-button(
+				type="info"
+				icon="el-icon-arrow-left"
+				:disabled="prevDayDis()"
+				@click="currentDateIdx -= (currentDateIdx > 0)? 1 : 0"
+			)
+			el-date-picker(
+				type="date"
+				:clearable="false"
+				placeholder="跳到"
+				popper-class="date-picker"
+				v-model="currentDate"
+				:picker-options="pickerOptions"
+			)
+			el-button(
+				type="info"
+				icon="el-icon-arrow-right"
+				:disabled="nextDayDis()"
+				@click="currentDateIdx += 1"
+			)
 
 		//- 項目卡片
 		.cardGrid
@@ -81,7 +95,7 @@ export default {
 		pageHeader,
 	},
 	data:()=>({
-		currentDate: 0,
+		currentDateIdx: 0,
 		time: null,
 	}),
 	props:{
@@ -93,78 +107,38 @@ export default {
 		},
 	},
 	computed:{
+		pickerOptions(){
+			return {
+				disabledDate: (time) => {
+					if (!this.time) return true;
+					const firstData = this.time[0];
+					const lastData = this.time[this.time.length - 1];
+					const select = time.getTime();
+					return (select < firstData.startTime) || (select >= lastData.endTime);
+				},
+			}
+		},
 		dataModel(){
 			if (!this.time) return null;
-			console.log("dataModel()", this, this.time, this.currentDate)
-			return this.time[this.currentDate];
+			console.log("dataModel()", this, this.time, this.currentDateIdx)
+			return this.time[this.currentDateIdx];
 		},
-		MARKS(){
-			let bucket = {}
-			this.time?.forEach((obj,index)=>{
-				const D = new Date(obj.startTime)
-				const yy = D.getFullYear()
-				const mm = D.getMonth()+1
-				const dd = D.getDate()
-
-				bucket[index] = {
-					label:`${mm}/${dd}`
-				}
-			})
-			return bucket
-		},
-		options(){
-			return {
-				dotSize: 18,
-				width: 'auto',
-				height: '0.8rem',
-				// contained: true,
-				direction: 'ltr',
-				// data: DATES,
-				// min: 0,
-				max: this.time?.length ? (this.time.length-1) : 0,
-				// interval: 1,
-				// disabled: false,
-				// clickable: true,
-				// duration: 0.5,
-				lazy: true,
-				tooltip: 'none',
-				// tooltip: 'always',
-				// // tooltipPlacement: 'top',
-				// tooltipFormatter: i=>this.getUnionDateString(new Date(this.time[i])),
-				// tooltipStyle: {
-				// 	pointerEvents: 'auto'
-				// },
-				// useKeyboard: false,
-				// keydownHook: null,
-				dragOnClick: true,
-				// enableCross: true,
-				// fixed: false,
-				// minRange: void 0,
-				// maxRange: void 0,
-				// order: true,
-				included: false,
-				marks: this.MARKS,
-				dotOptions: {
-					style:{
-						pointerEvents:'auto'
+		currentDate: {
+			get(){
+				return (this.time)? this.time[this.currentDateIdx].startTime : null;
+			},
+			set(time) {
+				this.time?.every((obj,index)=>{
+					const t0 = obj.startTime;
+					const t1 = obj.endTime;
+					if ((time < t0) || (time >= t1)) {
+						return true;
 					}
-				},
-				// process: true,
-				// dotStyle: {},
-				railStyle: {
-					pointerEvents:'none'
-				},
-				// processStyle: void 0,
-				stepStyle: {
-					boxShadow: 'none',
-					backgroundColor: '#ffffff',
-					width: '2px',
-					borderRadius: 0
-				},
-				// stepActiveStyle: void 0,
-				// labelStyle: void 0
-				// labelActiveStyle: void 0,
-			}
+					this.currentDateIdx = index;
+					return false;
+				})
+				//console.log("[currentDate]set", this, time);
+			},
 		},
 	},
 	async created() {
@@ -175,8 +149,8 @@ export default {
 		detail.time.forEach((val, idx) => {
 			let ele = val.weatherElement;
 			let obj = {
-				startTime: val.validTime.startTime,
-				endTime: val.validTime.endTime,
+				startTime: new Date(val.validTime.startTime),
+				endTime: new Date(val.validTime.endTime),
 				lunarDate: ele[0].value,
 				tidalRange: ele[1].value,
 				time: [],
@@ -206,15 +180,28 @@ export default {
 		getDateTime(datetime){
 			return new Date(datetime).toLocaleString();
 		},
+		nextDayDis() {
+			if (!this.time) return true;
+			return (this.currentDateIdx + 1 >= this.time.length)
+		},
+		prevDayDis() {
+			if (!this.time) return true;
+			return (this.currentDateIdx <= 0)
+		},
 	}
 }
 </script>
 
+<style lang="scss">
+.el-picker-panel.el-date-picker.el-popper.date-picker {
+	max-width: unset;
+}
+</style>
 <style lang="scss" scoped>
 
 .popup{
 	margin: 0 auto;
-	max-width:90vw;
+	max-width: 90vw;
 	min-width: 300px;
 }
 
@@ -224,6 +211,14 @@ export default {
 	margin: 0 0.5rem;
 }
 
+.picker {
+	display: table;
+	margin: 0 auto;
+}
+
+.el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date {
+	max-width: max-content;
+}
 
 /deep/ {
 	.el-tag,.el-card{
