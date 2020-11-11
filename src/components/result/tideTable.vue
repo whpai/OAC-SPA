@@ -192,9 +192,9 @@ export default {
 				dd[d[3].elementName+'.unit'] = d[3].elementValue.measures;
 				dd[d[4].elementName] = d[4].elementValue.value;
 				dd[d[4].elementName+'.unit'] = d[4].elementValue.measures;
-				obj.time.push(dd);
+				obj.time.push(Object.freeze(dd));
 			})
-			time.push(obj);
+			time.push(Object.freeze(obj));
 		})
 		this.time = time;
 //		console.log("tideTable", this, this.time);
