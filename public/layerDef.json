@@ -477,7 +477,7 @@
             "url": "https://ocean.taiwan.gov.tw/OpenData/CWB_TownCoastal/json/F-D0047-095.json",
             "visible": true,
             "tag": [],
-            "dataSet": [{ "label": "鄉鎮沿海未來2天逐3小時天氣預報", "value": "" }],
+            "dataSet": [{ "label": "鄉鎮沿海未來2天逐3小時天氣預報", "value": "https://opendata.cwb.gov.tw/dataset/forecast/F-D0047-095" }],
             "type": "markForecastLayer",
             "layerOption": {
                 "icon": "cloud"
