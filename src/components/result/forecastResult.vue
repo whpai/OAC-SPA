@@ -15,57 +15,61 @@
 
 		//- 項目卡片
 		.cardGrid
-			template(v-if="data.time")
-				template(v-for="(obj, idx) in data.time")
-					el-card.dataCard(shadow="hover")
-						.dataCard__row
-							h3 {{getDateTime(obj['dataTime'])}}
-						.dataCard__row
-							el-card.dataCard(shadow="hover")
-								.dataCard__row
-									img(fit="scale-down" style="max-height: 30px;" :src="getWxUrl(obj)" :alt="obj['Wx'][1].value")
-									span
-										h3.caption
-											big {{obj['Wx'][1].value}}
-
-							el-card.dataCard(shadow="hover")
-								.dataCard__row
-									h3 {{tab['Sky']}}
-									span
-										h3.caption
-											big {{obj['Sky'].value}}
-										el-tag(type="warning" size="medium") {{obj['Sky'].measures}}
-
-						.dataCard__row
-							template(v-for="name in windList")
-								el-card.dataCard(shadow="hover")
-									.dataCard__row(@click="windUnitChange(obj[name])")
-										h3 {{tab[name]}}
-										span
-											h3.caption
-												big {{getWind(obj[name]).value}}
-											el-tag(type="warning" size="medium") {{getWind(obj[name]).measures}}
-
-						.dataCard__row
-							template(v-for="name in flowList")
-								el-card.dataCard(shadow="hover")
-									.dataCard__row(@click="flowUnitChange(obj[name])")
-										h3 {{tab[name]}}
-										span
-											h3.caption
-												big {{getFlow(obj[name]).value}}
-											el-tag(type="warning" size="medium") {{getFlow(obj[name]).measures}}
-
-						.dataCard__row
-							template(v-for="name in waveList")
+			template(v-if="tab")
+				el-tabs(v-model="activeTab")
+					template(v-for="(dtab, idx) in dateTab")
+						el-tab-pane(:label="dateTabLabel[idx]" :name="idx")
+							template(v-for="(obj, idx) in dtab")
 								el-card.dataCard(shadow="hover")
 									.dataCard__row
-										h3 {{tab[name]}}
-										span
-											h3.caption
-												big {{obj[name].value}}
-											el-tag(type="warning" size="medium") {{obj[name].measures}}
+										h3 {{getDateTime(obj['dataTime'])}}
+									.dataCard__row
+										el-card.dataCard(shadow="hover")
+											.dataCard__row
+												img(fit="scale-down" style="max-height: 30px;" :src="getWxUrl(obj)" :alt="obj['Wx'][1].value")
+												span
+													h3.caption
+														big {{obj['Wx'][1].value}}
 
+										el-card.dataCard(shadow="hover")
+											.dataCard__row
+												h3 {{tab['Sky']}}
+												span
+													h3.caption
+														big {{obj['Sky'].value}}
+													el-tag(type="warning" size="medium") {{obj['Sky'].measures}}
+
+									.dataCard__row
+										template(v-for="name in windList")
+											el-card.dataCard(shadow="hover")
+												.dataCard__row(@click="windUnitChange(obj[name])")
+													h3 {{tab[name]}}
+													span
+														h3.caption
+															big {{getWind(obj[name]).value}}
+														el-tag(type="warning" size="medium") {{getWind(obj[name]).measures}}
+
+									.dataCard__row
+										template(v-for="name in flowList")
+											el-card.dataCard(shadow="hover")
+												.dataCard__row(@click="flowUnitChange(obj[name])")
+													h3 {{tab[name]}}
+													span
+														h3.caption
+															big {{getFlow(obj[name]).value}}
+														el-tag(type="warning" size="medium") {{getFlow(obj[name]).measures}}
+
+									.dataCard__row
+										template(v-for="name in waveList")
+											el-card.dataCard(shadow="hover")
+												.dataCard__row
+													h3 {{tab[name]}}
+													span
+														h3.caption
+															big {{obj[name].value}}
+														el-tag(type="warning" size="medium") {{obj[name].measures}}
+
+		el-backtop(target=".el-drawer__body")
 </template>
 
 <script>
@@ -85,6 +89,8 @@ export default {
 
 		windList: ['WS', 'WD'],
 		windUnitIdx: 0,
+
+		activeTab: 0,
 	}),
 	props:{
 		data: {
@@ -99,42 +105,38 @@ export default {
 		opendataLinkUrl() {
 			return `https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=${this.data.geocode}`;
 		},
-/*		pickerOptions(){
-			return {
-				disabledDate: (time) => {
-					if (!this.time) return true;
-					const firstData = this.time[0];
-					const lastData = this.time[this.time.length - 1];
-					const select = time.getTime();
-					return (select < firstData.startTime) || (select >= lastData.endTime);
-				},
-			}
-		},
-		dataModel(){
-			if (!this.time) return null;
-			console.log("dataModel()", this, this.time, this.currentDateIdx)
-			return this.time[this.currentDateIdx];
-		},
-		currentDate: {
-			get(){
-				return (this.time)? this.time[this.currentDateIdx].startTime : null;
-			},
-			set(time) {
-				this.time?.every((obj,index)=>{
-					const t0 = obj.startTime;
-					const t1 = obj.endTime;
-					if ((time < t0) || (time >= t1)) {
-						return true;
-					}
-					this.currentDateIdx = index;
-					return false;
-				})
-				//console.log("[currentDate]set", this, time);
-			},
+/*		dataModel(){
+			if (!this.dateTab) return null;
+			console.log("dataModel()", this, this.dateTab, this.activeTab)
+			return this.dateTab[this.activeTab];
 		},*/
 	},
 	created() {
+		let tabs = [];
+		let tabLabel = [];
+		let tmp = [];
+		let t0 = null;
+		this.data.time.forEach((info, idx) => {
+			if (!t0) {
+				t0 = new Date(info.dataTime);
+				tabLabel.push(t0.toLocaleDateString());
+				return;
+			}
+			let t1 = new Date(info.dataTime);
+			if (t1.getDate() != t0.getDate()) {
+				tabs.push(tmp);
+				tmp = [info];
+				t0 = t1;
+				tabLabel.push(t0.toLocaleDateString());
+			} else {
+				tmp.push(info);
+			}
+		});
+		if (tmp.length) tabs.push(tmp);
 
+		this.dateTab = tabs;
+		this.dateTabLabel = tabLabel;
+//console.log("[created]", this, this.dateTab);
 	},
 	mounted() {
 
