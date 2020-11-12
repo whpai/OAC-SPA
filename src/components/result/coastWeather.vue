@@ -67,9 +67,10 @@ export default {
         tableData(){
             const WxData = {}
             for (const {startTime,parameter} of this.Wx) {
+                let val = parameter.parameterValue.padStart(2, '0'); // workaround for bad data source :(
                 WxData[startTime] = {
                     ...parameter,
-                    src:`https://www.cwb.gov.tw/V8/assets/img/weather_icons/weathers/svg_icon/day/${parameter.parameterValue}.svg`
+                    src:`https://www.cwb.gov.tw/V8/assets/img/weather_icons/weathers/svg_icon/day/${val}.svg`
                 }
             }
             const WindDirData = {}
