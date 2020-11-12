@@ -80,6 +80,7 @@ export default {
 				layer.showOnly(value, null);
 
 				const bound = layer.markerClusterGroup.getBounds();
+				if (!bound) return;
 				const {map} = this.$InitIns;
 				map.flyToBounds(bound);
 			}

@@ -300,10 +300,19 @@ export class ScenicSpotLayer extends BaseCluster {
             this.index[Region] = reg;
         }
         if (Tag) {
-            let tagItem = reg[Tag];
+            Tag.forEach((val, idx) => {
+                let tagItem = reg[val];
+                if (!tagItem) {
+                    tagItem = [];
+                    reg[val] = tagItem;
+                }
+                tagItem.push(mk);
+            })
+        } else {
+            let tagItem = reg[Town];
             if (!tagItem) {
                 tagItem = [];
-                reg[Tag] = tagItem;
+                reg[Town] = tagItem;
             }
             tagItem.push(mk);
         }
