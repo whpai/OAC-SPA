@@ -228,6 +228,9 @@ export default {
 								}
 							})
 							break
+						case "forecast":
+							
+							break
 						case "scenicSpot":
 						default:
 							setTimeout(()=>layer.openPopup(),100)

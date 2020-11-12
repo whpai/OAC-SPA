@@ -473,6 +473,17 @@
             }
         },
         {
+            "title": "鄉鎮沿海未來2天逐3小時天氣預報",
+            "url": "https://ocean.taiwan.gov.tw/OpenData/CWB_TownCoastal/json/F-D0047-095.json",
+            "visible": true,
+            "tag": [],
+            "dataSet": [{ "label": "鄉鎮沿海未來2天逐3小時天氣預報", "value": "" }],
+            "type": "markForecastLayer",
+            "layerOption": {
+                "icon": "cloud"
+            }
+        },
+        {
             "title": "颱風路徑",
             "url": "https://ocean.taiwan.gov.tw/OpenData/CWB_Typhoon/json/W-C0034-001_002.json",
             "visible": true,

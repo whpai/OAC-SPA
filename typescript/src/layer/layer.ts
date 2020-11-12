@@ -21,6 +21,7 @@ import {
     ScenicSpotLayer,
     WaterQualityLayer,
     TidalLayer,
+    ForecastLayer,
 } from "./clusterMarkerLayer"
 
 export class Layer {
@@ -176,6 +177,7 @@ export class Layer {
                 "typhoonLayer":TyphoonLayer,
                 "markWaterQuality": WaterQualityLayer,
                 "markTidalLayer": TidalLayer,
+                "markForecastLayer": ForecastLayer,
             }
             const lyrIns = new mapFn[lyrOpts.type]({
                 ...lyrOpts,

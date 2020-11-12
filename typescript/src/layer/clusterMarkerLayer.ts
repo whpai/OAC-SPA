@@ -518,3 +518,88 @@ export class TidalLayer extends BaseCluster {
 
 }
 
+export class ForecastLayer extends BaseCluster {
+
+	data:any
+
+	constructor(opts){
+		super(opts)
+	}
+
+	private mkMark(lat, lon, data, tab){
+		const latlng = L.latLng(lat, lon);
+		const mk = L.marker(latlng, {
+			icon:L.divIcon({
+				html:this.getIconVM(),
+			}),
+		})
+		mk.lyr = this;
+
+		const locdata = {data, tab};
+
+		mk.on("click", e => {
+			this._map.fireEvent("markerClick",{
+				dataType: "forecast",
+				layer: mk,
+				data: locdata,
+				event:e,
+			})
+		})
+
+		return mk
+	}
+
+	onAdd(map){
+		(async ()=>{
+			try{
+				this.status = "loading"
+
+				if(!this.data) {
+					const ref = await this.fetchData();
+					let tab = {};
+					let data = ref.cwbopendata.dataset.locations.location.map(({
+						locationName, lat, lon, geocode, weatherElement
+					}) => {
+						let out = {locationName, lat, lon, geocode};
+						let timeline = [];
+
+						let tmp = {};
+						weatherElement.forEach(({elementName, description, time}) => {
+							if (!tab[elementName]) tab[elementName] = description;
+
+							//let info = [];
+							time.forEach(({dataTime, elementValue}) => {
+								if (!tmp[dataTime]) tmp[dataTime] = {dataTime};
+								//if (!tmp[dataTime][elementName]) tmp[dataTime][elementName] = info;
+								//info.push(elementValue);
+								tmp[dataTime][elementName] = elementValue;
+							});
+						});
+						Object.keys(tmp).sort().forEach((key) => {
+							timeline.push(tmp[key]);
+						});
+						out.time = timeline;
+						return out;
+					});
+					this.data = {tab, data};
+console.log("[forecast]data", this, data);
+				}
+
+				this.data.data.forEach((loc) => {
+					const mk = this.mkMark(loc.lat, loc.lon, loc, this.data.tab);
+					this.markerClusterGroup.addLayer(mk)
+				})
+				this.markerClusterGroup.addTo(map)
+
+				this.fireEvent("loaded")
+				this.status = "loaded"
+			}catch(e){
+				this.fireEvent("error",e)
+				this.status = "error"
+			}
+		})()
+		return this
+	}
+
+}
+
