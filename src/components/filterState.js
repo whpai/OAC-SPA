@@ -2,18 +2,18 @@ export default {
 	namespaced: true,
 	state: {
 		currentRegion: null,
-		currentTown: null,
+		currentTag: null,
 	},
 	actions: {},
 	mutations: {
 		/** 紀錄觀光景點過濾 */
-		SET_CURRENT_FILTER: (state, { region, town }) => {
+		SET_CURRENT_FILTER: (state, { region, tag }) => {
 			state.currentRegion = region
-			state.currentTown = town
+			state.currentTag = tag
 		},
 	},
 	getters: {
 		currentRegion: state => state.currentRegion,
-		currentTown: state => state.currentTown,
+		currentTag: state => state.currentTag,
 	},
 }

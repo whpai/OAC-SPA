@@ -26,15 +26,15 @@
 					font-awesome-icon(icon="filter" fixed-width size="lg")
 	el-select(
 		style="width:100%;"
-		v-model="selectedTownModel"
+		v-model="selectedTagModel"
 		filterable
-		placeholder="選擇鄉鎮"
+		placeholder="選擇標籤"
 		placement="bottom"
 		popper-class="selectItems"
 		clearable
 	)
 		el-option(
-			v-for="i in towns" 
+			v-for="i in tags"
 			:key="i.label" 
 			:label="i.label" 
 			:value="i.value"
@@ -50,17 +50,15 @@ import {mapGetters,mapActions, mapMutations} from 'vuex'
 export default {
 	name :"search",
 	data:()=>({
-		//currentRegion:null,
-		//currentTown:null,
 		filterRegion:null,
-		filterTown:null,
+		filterTag:null,
 
 		LayerToFilt:null, // layerID
 	}),
 	computed:{
 		...mapGetters({
 			currentRegion: './filter/currentRegion',
-			currentTown: './filter/currentTown',
+			currentTag: './filter/currentTag',
 		}),
 		layers(){
 			return this.$store.state.layer.layer
@@ -75,9 +73,9 @@ export default {
 
 				if(!currentRegion) label = null;
 				this.currentRegion = label;
-				this.filterTown = Object.freeze(currentRegion);
+				this.filterTag = Object.freeze(currentRegion);
 
-				this.SET_CURRENT_FILTER({region: label, town: null})
+				this.SET_CURRENT_FILTER({region: label, tag: null})
 				const layer = this.$LayerIns.normalLayerCollection.find(l => l.id === this.LayerToFilt)
 				layer.showOnly(value, null);
 
@@ -86,13 +84,13 @@ export default {
 				map.flyToBounds(bound);
 			}
 		},
-		selectedTownModel:{
+		selectedTagModel:{
 			get(){
-				return this.currentTown
+				return this.currentTag
 			},
 			set({label,value}){
-				this.currentTown = label;
-				this.SET_CURRENT_FILTER({region: this.currentRegion, town: label})
+				this.currentTag = label;
+				this.SET_CURRENT_FILTER({region: this.currentRegion, tag: label})
 				const layer = this.$LayerIns.normalLayerCollection.find(l => l.id === this.LayerToFilt)
 				layer.showOnly(this.currentRegion, value);
 
@@ -113,11 +111,11 @@ export default {
 			})
 			return qSearchs
 		},
-		towns(){
-			if(!this.filterTown) return
-			const filterTown = this.filterTown
+		tags(){
+			if(!this.filterTag) return
+			const filterTag = this.filterTag
 			let qSearchs = []
-			Object.keys(filterTown).forEach(k => {
+			Object.keys(filterTag).forEach(k => {
 				qSearchs.push({label: k,value: {
 					label: k,
 					value: k
@@ -131,7 +129,7 @@ export default {
 		if (!layer.index) return;
 		const regions = Object.freeze(layer.index); // otherwise will be very slow
 		this.filterRegion = regions;
-		if (this.currentRegion) this.filterTown = Object.freeze(regions[this.currentRegion]);
+		if (this.currentRegion) this.filterTag = Object.freeze(regions[this.currentRegion]);
 		this.LayerToFilt = layer.id;
 	},
 	methods:{

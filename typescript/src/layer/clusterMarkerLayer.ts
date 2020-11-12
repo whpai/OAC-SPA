@@ -220,14 +220,14 @@ export class ScenicSpotLayer extends BaseCluster {
     marker: L.Marker[]
     index: Object
     currReg: string
-    currTwn: string
+    currTag: string
 
     constructor(opts){
         super(opts)
         this.marker = [];
         this.index = {};
         this.currReg = null;
-        this.currTwn = null;
+        this.currTag = null;
     }
 
     private _pointToLayer(feature, latlng){
@@ -247,6 +247,7 @@ export class ScenicSpotLayer extends BaseCluster {
             Py,Px,
             Region,
             Town,
+            Tag,
         } = feature.properties
         const img = Picture1||Picture2||Picture3||''
 
@@ -298,12 +299,14 @@ export class ScenicSpotLayer extends BaseCluster {
             reg = {};
             this.index[Region] = reg;
         }
-        let twn = reg[Town];
-        if (!twn) {
-            twn = [];
-            reg[Town] = twn;
+        if (Tag) {
+            let tagItem = reg[Tag];
+            if (!tagItem) {
+                tagItem = [];
+                reg[Tag] = tagItem;
+            }
+            tagItem.push(mk);
         }
-        twn.push(mk);
 
         return mk
     }
@@ -312,9 +315,9 @@ export class ScenicSpotLayer extends BaseCluster {
         return Object.freeze(this.index);
     }
 
-    showOnly(region, town){
+    showOnly(region, tag){
         this.currReg = region;
-        this.currTwn = town;
+        this.currTag = tag;
         if (!region) {
             this.marker.forEach(mk => {
                 this.markerClusterGroup.addLayer(mk)
@@ -326,16 +329,16 @@ export class ScenicSpotLayer extends BaseCluster {
         let list = [];
         let reg = this.index[region];
         if (!reg) return;
-        if (!town) {
+        if (!tag) {
             Object.keys(reg).forEach(regName => {
-                let twn = reg[regName];
-                twn.forEach(mk => {
+                let tagItem = reg[regName];
+                tagItem.forEach(mk => {
                     list.push(mk);
                 })
             })
         } else {
-           let twn = reg[town];
-           list = twn;
+           let tagItem = reg[tag];
+           list = tagItem;
         }
         list.forEach(mk => {
             this.markerClusterGroup.addLayer(mk)
@@ -362,7 +365,7 @@ export class ScenicSpotLayer extends BaseCluster {
 
                 this.markerClusterGroup.addLayer(geojson).addTo(map)
                 if (this.currReg) {
-                    this.showOnly(this.currReg, this.currTwn);
+                    this.showOnly(this.currReg, this.currTag);
                 }
 
                 this.fireEvent("loaded")
