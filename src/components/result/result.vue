@@ -18,6 +18,7 @@ div
                     el-tag(size="small") {{i.layerCatelog.map(c=>c.label).join('、')}}
                     el-divider(direction="vertical")
                     | {{i.layerTitle}}
+                    template(v-if="isLaw(i.data)")  - {{i.data['名稱']}}
                 el-button(@click="locate(i)" type="primary" plain size="mini" circle)
                     font-awesome-icon(icon="map-marker-alt" fixed-width)
 
@@ -63,6 +64,7 @@ div
                                     el-tag(size="small" effect="dark") {{scope.singleCaseData.layerCatelog.map(i=>i.label).join('、')}}
                                     el-divider(direction="vertical")
                                 div(v-marquee="{width:'100%'}") {{scope.singleCaseData.layerTitle}}
+                                    template(v-if="isLaw(scope.singleCaseData.data)")  -  {{scope.singleCaseData.data['名稱']}}
 
                         template(slot="detail")
                             .table(v-if="dataId")
