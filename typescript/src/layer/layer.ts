@@ -113,18 +113,12 @@ export class Layer {
         console.log("offset", offset)
 
         // 要移動的目標
+        // array尾 == 上層
         let ptr = this.normalLayerCollection[rvOldIndex]
         console.log(ptr)
         //console.log("[ before order ]", this.normalLayerCollection.map(l=>l.title).reverse())
 
         if(offset>0){
-            ptr.bringToFront() // 會使目標移到最前
-            // 計算 出從原索引到新索引間的圖層，並反序使用 bringToFront 逐個移至最上 使目標回到正確索引
-            for (let index = this.normalLayerCollection.length-1; index > rvNewIndex; index--) {
-                const l = this.normalLayerCollection[index]
-                "bringToFront" in l && l.bringToFront()
-            }
-
             // 依偏移量逐個交換，以更新用來記錄的集合
             let cnt = rvOldIndex
             for (let index = 0; index <Math.abs(offset); index++) {
@@ -135,16 +129,6 @@ export class Layer {
                 cnt += 1
             }
         }else if(offset<0){
-            
-            ptr.bringToBack() // 會使目標移到最後
-            // 計算 出從原索引到新索引間的圖層，並反序使用 bringToFront 逐個移到最後 使目標回到正確索引
-            for (let index = this.normalLayerCollection.length-1; index >= 0; index--) {
-                const l = this.normalLayerCollection[index]
-                if(index<rvNewIndex){
-                    "bringToBack" in l && l.bringToBack()
-                }
-            }
-
             // 依偏移量逐個交換，以更新用來記錄的集合
             let cnt = rvOldIndex
             for (let index = 0; index <Math.abs(offset); index++) {
@@ -156,7 +140,15 @@ export class Layer {
             }
         }
 
-        console.log("[ after order ]", this.normalLayerCollection.map(l=>l.title).reverse())
+        if (offset) {
+            // 使用 bringToFront 逐個移到上層 使目標回到正確索引
+            for (let idx in this.normalLayerCollection) {
+                const l = this.normalLayerCollection[idx]
+                "bringToFront" in l && l.bringToFront()
+//console.log("[ bringToFront ]", l.title)
+            }
+        }
+        //console.log("[ after order ]", this.normalLayerCollection.map(l=>l.title).reverse())
 
     }
     
