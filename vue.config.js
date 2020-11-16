@@ -42,18 +42,42 @@ module.exports = {
                 .use(FaviconsWebpackPlugin, [{
                     inject: true,
                     cache: true,
+                    mode: 'webapp',
                     devMode: 'webapp',
-                    prefix: "./img/icons",
-                    publicPath: "./",
+                    prefix: './img/icons',
+                    outputPath: './img/icons',
+                    publicPath: './',
                     logo: "./src/assets/logoOCA.png",
                     favicons: {
                         appName: "海域整合資訊",
+                        appShortName: "海域整合資訊",
                         appDescription: "海域遊憩活動一站式資訊平臺",
+                        lang: "zh-Hant",
                         developerName: "詮華",
-                        display: "fullscreen",
+                        display: "standalone",
                         manifestRelativePaths: "./",
-                        start_url: "./",
-                        scope: "./"
+                        start_url: `../../`,
+                        scope: `../../`, // because 'prefix' == './img/icons'
+                        icons: {
+                            // Platform Options:
+                            // - offset - offset in percentage
+                            // - background:
+                            //   * false - use default
+                            //   * true - force use default, e.g. set background for Android icons
+                            //   * color - set background for the specified icons
+                            //   * mask - apply mask in order to create circle icon (applied by default for firefox). `boolean`
+                            //   * overlayGlow - apply glow effect after mask has been applied (applied by default for firefox). `boolean`
+                            //   * overlayShadow - apply drop shadow after mask has been applied .`boolean`
+                            //
+                            android: true,              // Create Android homescreen icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            appleIcon: true,            // Create Apple touch icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            appleStartup: true,         // Create Apple startup images. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            coast: false,                // Create Opera Coast icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            favicons: true,             // Create regular favicons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            firefox: true,              // Create Firefox OS icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            windows: true,              // Create Windows 8 tile icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                            yandex: false,                // Create Yandex browser icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }` or an array of sources
+                        },
                     }
                 }])
         }
