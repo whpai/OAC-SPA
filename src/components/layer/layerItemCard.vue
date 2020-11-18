@@ -66,6 +66,7 @@
 								div(v-for="i,index in layer.dataSet")
 									a(
 										target="_blank"
+										:rel="noopener"
 										:href="i.value"
 									) {{i.label}}
 

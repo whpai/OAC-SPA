@@ -1,6 +1,6 @@
 <template lang="pug">
     .items
-        a.item(v-for='val in links' :href='val.link' target="blank")
+        a.item(v-for='val in links' :href='val.link' target="_blank" rel="noopener noreferrer nofollow")
             h3  {{ val.title }}
             .img-wrapper-outer
                 .img-wrapper(:style="{backgroundImage: 'url(' + val.bg + ')'}")

@@ -25,6 +25,7 @@
                         :href="l.value"
                         type="primary" 
                         target="_blank" 
+                        rel="noopener"
                     ) {{l.label ? l.label.trim() : ''}}
 
 </template>

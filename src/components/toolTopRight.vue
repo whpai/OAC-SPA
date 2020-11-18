@@ -57,11 +57,12 @@ div
                     strong.tool__label 安裝說明
                     font-awesome-icon(icon="mobile-alt" fixed-width)
 
-            el-button(
-                @click="$openLink('https://docs.google.com/forms/d/e/1FAIpQLScf7at41snW4-ZczKN3p2hR8M9VKj_Af82BWEsZg6uPfwnY3Q/viewform')" 
+            a.link.el-button.el-button--default.is-circle(
                 key="意見回饋"
                 title="意見回饋"
-                circle
+                href="https://docs.google.com/forms/d/e/1FAIpQLScf7at41snW4-ZczKN3p2hR8M9VKj_Af82BWEsZg6uPfwnY3Q/viewform"
+                target="_blank"
+                rel="noopener"
             )
                 .tool__btn
                     strong.tool__label 意見回饋
@@ -173,7 +174,7 @@ export default {
         &>*{
             padding: 0.5rem !important;
             margin: 0 !important;
-            &:not(:nth-last-of-type(1)){
+            &:not(:nth-last-child(1)){
                 box-shadow:0 0 6px 3px rgba(0,0,0,0.2);
                 margin-bottom: 0.5rem !important;
             }

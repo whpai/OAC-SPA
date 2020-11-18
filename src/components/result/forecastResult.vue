@@ -8,6 +8,7 @@
 			el-link(
 				:href="opendataLinkUrl"
 				target="_blank"
+				rel="noopener"
 				icon="el-icon-question"
 				style="float:right;margin:0.5rem 0;"
 				title="查看資料來源"

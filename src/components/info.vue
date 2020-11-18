@@ -4,22 +4,22 @@ div
         photoLink(:links="links")
     template(v-else-if="value==='活動申請'")
         p
-            el-link(type="primary" icon="el-icon-link" @click="$openLink('https://www.icellars.tw/keelungreeffishing/auth/login.html')")
+            el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener" href="https://www.icellars.tw/keelungreeffishing/auth/login.html")
                 strong 基隆市島礁磯釣活動
             br
             small 基隆市政府、基隆區漁會
         p
-            el-link(type="primary" icon="el-icon-link" @click="$openLink('https://ftz.mtnet.gov.tw/YBerth/Portal/sys_a/a01/a0103')")
+            el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener" href="https://ftz.mtnet.gov.tw/YBerth/Portal/sys_a/a01/a0103")
                 strong 遊艇申辦服務平台
             br
             small 泊位資訊查詢、遊艇進出港申請、泊位申請
         p
-            el-link(type="primary" icon="el-icon-link" @click="$openLink('https://www.necoast-nsa.gov.tw/coast/')")
+            el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener" href="https://www.necoast-nsa.gov.tw/coast/")
                 strong 東北角龜山島登島
             br
             small 龜山島各項申請查詢作業、船舶資訊、法規資訊、登島表單之線上申請系統
         p
-            el-link(type="primary" icon="el-icon-link" @click="$openLink('https://www.tjnp.gov.tw/PublicInformationDetail.aspx?Cond=83713bde-e4e4-4f5c-a8ad-ed4cc0d60c34')")
+            el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener" href="https://www.tjnp.gov.tw/PublicInformationDetail.aspx?Cond=83713bde-e4e4-4f5c-a8ad-ed4cc0d60c34")
                 strong 台江國家公園水域
             br
             small 遊憩活動申請須知及相關附件

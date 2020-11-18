@@ -68,6 +68,8 @@
 					type="primary"
 					:href="data.value" 
 					:key="data.value"
+					target="_blank"
+					rel="noopener"
 				) {{data.label}}
 				| 、
 </template>
