@@ -33,11 +33,15 @@
 			template(slot="suffix")
 		el-button(type="primary" round @click="latLngLocate") 查詢
 
+	searchDummy()
+
 </template>
 
 <script>
 
 import {mapGetters,mapActions, mapMutations} from 'vuex'
+
+import searchDummy from '@/components/searchDummy'
 
 export default {
 	name :"search",
@@ -46,6 +50,9 @@ export default {
 		lng:"",
 		lat:""
 	}),
+	components:{
+		searchDummy,
+	},
 	computed:{
 		currentTag(){
 			return this.$store.state.currentTag
@@ -143,7 +150,7 @@ export default {
 				}
 				&__inner{
 					padding-left: 55px;
-					border-radius: 999px !important;
+					border-radius: 999px;
 					box-shadow:0 0 6px 3px rgba(0,0,0,0.2);
 				}
 			}
