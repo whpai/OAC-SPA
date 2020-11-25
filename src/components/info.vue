@@ -2,6 +2,15 @@
 div
     template(v-if="value==='相關連結'")
         photoLink(:links="links")
+
+    template(v-else-if="value==='活動佈告欄'")
+        p
+            el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener noreferrer nofollow" href="https://www.sow.org.tw/faq/myiccday")
+                strong 天天都是你的國際淨灘行動 請一起這樣愛海洋
+        p
+            el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener noreferrer nofollow" href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=141399&ctNode=650&mp=999")
+                strong 海巡偕同師生淨灘，攜手恢復海灘樣貌
+
     template(v-else-if="value==='活動申請'")
         p
             el-link(type="primary" icon="el-icon-link" target="_blank" rel="noopener" href="https://www.icellars.tw/keelungreeffishing/auth/login.html")
@@ -43,7 +52,7 @@ export default {
     name:"info",
     props:{
         value:{
-            validator: v=>/^相關連結|活動申請|使用條約$/.test(v),
+            validator: v=>/^相關連結|活動申請|使用條約|活動佈告欄$/.test(v),
             default:"",
         }
     },

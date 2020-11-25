@@ -27,6 +27,16 @@ div
                     font-awesome-icon(icon="link" fixed-width)
 
             el-button(
+                @click="openDrawer('活動佈告欄')"
+                key="活動佈告欄"
+                title="活動佈告欄"
+                circle
+            )
+                .tool__btn
+                    strong.tool__label 活動佈告欄
+                    font-awesome-icon(icon="bullhorn" fixed-width)
+
+            el-button(
                 @click="openDrawer('活動申請')" 
                 key="活動申請"
                 title="活動申請"
