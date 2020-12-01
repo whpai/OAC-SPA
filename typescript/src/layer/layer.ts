@@ -303,15 +303,23 @@ console.log("[ins.getLayersAt]", point, y, viewportPoint, els)
 		return this._getLayerFromDOMElement(el.parentElement);
 	}
 
+	metersPerPixel(latitude, zoomLevel) {
+		var earthCircumference = 40075017;
+		var latitudeRadians = latitude * (Math.PI/180);
+		return earthCircumference * Math.cos(latitudeRadians) / Math.pow(2, zoomLevel + 8);
+	}
+
     query(latlng:L.LatLng){
         let map:L.Map = this._map;
         let payload:Array<IQueryResult> = new Array()
+//        let px2meter = this.metersPerPixel(latlng.lat, map.getZoom());
+//console.log("[px2meter]", px2meter)
 
         map.eachLayer((l:any)=>{
             if(l.visible && l instanceof GeojsonLayer){
 		l.deHighLightPath()
 
-                const pathCollection = l.getFeaturePropertiesBylatlng(latlng)
+                const pathCollection = l.getFeaturePropertiesBylatlng(latlng, map, 5)
                 const {id,title,catelog,tag} = l
                 pathCollection.forEach(path=>{
                     payload.push({

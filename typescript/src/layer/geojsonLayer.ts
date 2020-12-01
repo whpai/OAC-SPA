@@ -159,7 +159,7 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
         } 
     }
 
-    getFeaturePropertiesBylatlng(latlng:L.LatLng){
+    getFeaturePropertiesBylatlng(latlng:L.LatLng, map, radius = 1){
 
         let pathCollection = []
 
@@ -173,9 +173,10 @@ export class GeojsonLayer extends L.GeoJSON implements ILayer{
                     let cnt = 0
                     while(t[cnt+1]){
                         if(!(t[cnt] instanceof L.LatLng)) break
-                        if(L.GeometryUtil.belongsSegment(latlng, t[cnt], t[cnt+1])) {
+                        let dst = L.GeometryUtil.distanceSegment(map, latlng, t[cnt], t[cnt+1]);
+                        if(dst <= radius) {
                             pathCollection.push(path)
-                            console.log("is polyline")
+                            console.log("is polyline", dst)
                             break 
                         }
                         cnt++
