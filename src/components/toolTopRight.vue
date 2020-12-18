@@ -79,7 +79,16 @@ div
                     strong.tool__label 意見回饋
                     font-awesome-icon(icon="envelope" fixed-width)
 
-            //- TODO: 使用說明 readme book
+            a.link.el-button.el-button--default.is-circle(
+                key="使用說明"
+                title="使用說明"
+                href="./res/109_12_一站式_使用說明_V1.1.pdf"
+                target="_blank"
+                rel="noopener"
+            )
+                .tool__btn
+                    strong.tool__label 使用說明
+                    font-awesome-icon(:icon="['fab', 'readme']" fixed-width)
 
         el-button(
             v-if="isMobile"
