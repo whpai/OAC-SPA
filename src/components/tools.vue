@@ -10,13 +10,14 @@
 			font-awesome-icon(icon="search" fixed-width size="lg")
 
 	//- 複合搜尋(觀光景點篩選)
-	el-button(
-		circle
-		type="primary" 
-		@click="openFilter"
-	)
-		.tools__button
-			font-awesome-icon(icon="filter" fixed-width size="lg")
+	//-
+		el-button(
+			circle
+			type="primary"
+			@click="openFilter"
+		)
+			.tools__button
+				font-awesome-icon(icon="filter" fixed-width size="lg")
 
 	//- 圖層
 	el-button(
