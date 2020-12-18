@@ -108,8 +108,8 @@ export default {
 		let loc = localStorage.getItem("location")
 		if(!loc) return
 		loc = loc.split(",")
-		this.lat = loc[0].slice(0,8)
-		this.lng = loc[1].slice(0,8)
+		this.lat = parseFloat(loc[0]).toFixed(5)
+		this.lng = parseFloat(loc[1]).toFixed(5)
 		
 	},
 	methods:{
